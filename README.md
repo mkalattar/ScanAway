@@ -17,3 +17,5 @@ Technologies used:
 ## Screenshots
 
 ![screenshot](screenshot.png)
+
+![demo-video](demo.gif)
