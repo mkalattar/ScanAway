@@ -74,10 +74,11 @@ class ScannedViewController: UIViewController {
         label.font = UIFont.systemFont(ofSize: 13, weight: .semibold)
     }
     
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
+        print("View Did Appear: ")
         print(view.bounds.height)
         print( (view.bounds.width - 30) + label.requiredHeight + 100 )
         print(label.requiredHeight)
@@ -86,9 +87,6 @@ class ScannedViewController: UIViewController {
             scrollView.contentSize = CGSize(width: view.bounds.width, height: (view.bounds.width - 30) + label.requiredHeight + 100)
         }
     }
-    
-
-    
   
 
 }

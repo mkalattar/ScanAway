@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "B61145AF6EBFA2794B9ACA1568FAEDAB"
-               BuildableName = "Pods-ScanAway.framework"
+               BuildableName = "Pods_ScanAway.framework"
                BlueprintName = "Pods-ScanAway"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>

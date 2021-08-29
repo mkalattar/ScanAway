@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Vision
 
 class HomeViewController: UIViewController {
     
@@ -19,11 +20,22 @@ class HomeViewController: UIViewController {
     
     var isImageSelected = false
     
+    let waitingAlert = UIAlertController(title: "Scanning...", message: nil, preferredStyle: .alert)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Scan Away!"
         view.backgroundColor = .systemBackground
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(reset))
+        
+        
+        
+        let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50))
+        loadingIndicator.hidesWhenStopped = true
+        loadingIndicator.style = UIActivityIndicatorView.Style.medium
+        loadingIndicator.startAnimating();
+
+        waitingAlert.view.addSubview(loadingIndicator)
         
         view.addSubview(segmentControl)
         segmentControl.selectedSegmentIndex = 0
@@ -76,31 +88,40 @@ class HomeViewController: UIViewController {
         scanButton.setTitleColor(.label, for: .normal)
         
         scanButton.addAction(UIAction(handler: { _ in
-            
             if !self.isImageSelected {
                 let alert = UIAlertController(title: "Please choose an image before proceeding.", message: nil, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
                 self.present(alert, animated: true, completion: nil)
                 return
             }
-            
+            self.present(self.waitingAlert, animated: true, completion: nil)
+
+
             let imageToScan = ImageScan(image: self.imageToS)
             let scannedVC = ScannedViewController()
-            
+
             scannedVC.img = self.imageToS!
+            
+            
 
             switch self.segmentControl.selectedSegmentIndex {
             case 0:
                 imageToScan.vision { text in
-                    print(text)
-                    scannedVC.text = text
-                    self.navigationController?.pushViewController(scannedVC, animated: true)
+                    self.waitingAlert.dismiss(animated: true) {
+                        print(text)
+                        scannedVC.text = text
+                        self.navigationController?.pushViewController(scannedVC, animated: true)
+                    }
+
                 }
             default:
                 imageToScan.googleMLKit { text in
-                    print(text)
-                    scannedVC.text = text
-                    self.navigationController?.pushViewController(scannedVC, animated: true)
+                    self.waitingAlert.dismiss(animated: true) {
+                        print(text)
+                        scannedVC.text = text
+                        self.navigationController?.pushViewController(scannedVC, animated: true)
+                    }
+                   
                 }
             }
             

@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "30C1018EE4A12A91CAC8041EE8AC5ED4"
-               BuildableName = "MLKitTextRecognition-GoogleMVTextDetectorResources.bundle"
+               BuildableName = "GoogleMVTextDetectorResources.bundle"
                BlueprintName = "MLKitTextRecognition-GoogleMVTextDetectorResources"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
