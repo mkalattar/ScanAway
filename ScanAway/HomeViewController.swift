@@ -39,8 +39,7 @@ class HomeViewController: UIViewController {
         
         view.addSubview(segmentControl)
         segmentControl.selectedSegmentIndex = 0
-//        segmentControl.addTarget(self, action: #selector(self.segmentedValueChanged(_:)), for: .valueChanged)
-        
+
         vc.delegate = self
         vc.allowsEditing = true
         
@@ -106,13 +105,16 @@ class HomeViewController: UIViewController {
 
             switch self.segmentControl.selectedSegmentIndex {
             case 0:
-                imageToScan.vision { text in
-                    self.waitingAlert.dismiss(animated: true) {
-                        print(text)
-                        scannedVC.text = text
-                        self.navigationController?.pushViewController(scannedVC, animated: true)
+                DispatchQueue.global().async {
+                    imageToScan.vision { text in
+                        DispatchQueue.main.async {
+                            self.waitingAlert.dismiss(animated: true) {
+                                print(text)
+                                scannedVC.text = text
+                                self.navigationController?.pushViewController(scannedVC, animated: true)
+                            }
+                        }
                     }
-
                 }
             default:
                 imageToScan.googleMLKit { text in
