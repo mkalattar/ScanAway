@@ -18,4 +18,4 @@ Technologies used:
 
 ![screenshot](screenshot.png)
 
-![demo-video](demo.gif)
+![demo-video](ScreenRecording.gif)
